@@ -344,16 +344,38 @@ const AnalysisPage: React.FC = () => {
     navigate(`/field/${fieldId}`);
   };
 
-  const downloadChartImage = () => {
+  const downloadChartImage = async () => {
     if (!chartUrl) return;
-    const link = document.createElement("a");
-    link.href = chartUrl;
-    link.download = `${
-      currentField?.name || "field"
-    }_${selectedVI}_${analysisType}_${selectedYear}${startMonth}-${endMonth}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+    try {
+      // Fetch the image from QuickChart
+      const response = await fetch(chartUrl);
+      const blob = await response.blob();
+
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${
+        currentField?.name || "field"
+      }_${selectedVI}_${analysisType}_${selectedYear}${startMonth}-${endMonth}.png`;
+
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading chart image:", error);
+      Swal.fire({
+        title: "เกิดข้อผิดพลาด",
+        text: "ไม่สามารถดาวน์โหลดรูปภาพได้ กรุณาลองใหม่อีกครั้ง",
+        icon: "error",
+        confirmButtonText: "ตกลง",
+      });
+    }
   };
 
   const downloadAnalysisResults = () => {

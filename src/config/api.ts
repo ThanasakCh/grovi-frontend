@@ -13,8 +13,8 @@ export const getApiUrl = (endpoint: string) => {
 
 // Helper function to get full image URL
 export const getImageUrl = (imagePath: string) => {
-  // If it's already a full URL, return as is
-  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+  // If it's already a full URL (http/https) or Base64 data URL, return as is
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('data:')) {
     return imagePath
   }
   
