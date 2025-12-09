@@ -8,13 +8,13 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-// Placeholder images - replace with actual VI images when available
-const ndviImage = "https://picsum.photos/seed/ndvi/800/600";
-const eviImage = "https://picsum.photos/seed/evi/800/600";
-const gndviImage = "https://picsum.photos/seed/gndvi/800/600";
-const ndwiImage = "https://picsum.photos/seed/ndwi/800/600";
-const saviImage = "https://picsum.photos/seed/savi/800/600";
-const vciImage = "https://picsum.photos/seed/vci/800/600";
+// Import vegetation index images
+import ndviImage from "../assets/images/Ndvi.png";
+import eviImage from "../assets/images/Evi.png";
+import gndviImage from "../assets/images/gndvi.png";
+import ndwiImage from "../assets/images/ndwi.png";
+import saviImage from "../assets/images/savi.png";
+import vciImage from "../assets/images/vci.png";
 
 interface ScaleRange {
   min: number;

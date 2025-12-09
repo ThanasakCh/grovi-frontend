@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { LogIn, LogOut } from "lucide-react";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/icons/logo.png";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
