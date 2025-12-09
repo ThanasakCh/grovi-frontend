@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
-  // Base URL for API calls - using tunnel URL for production
-  BASE_URL: 'https://skin-expressed-charge-agents.trycloudflare.com',
+  // Base URL for API calls - using localhost for development
+  BASE_URL: 'http://localhost:8000',
 }
 
 // Helper function to get full API URL

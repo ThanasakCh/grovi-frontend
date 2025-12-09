@@ -15,7 +15,7 @@ import {
   Layers,
   LayoutDashboard,
 } from "lucide-react";
-// import dashboardBg from "../vi_NDVI_20251206_110327_babd1e9b2b504dd2b29b6a37f05c452e.png"; // Removed - temp file
+import dashboardBg from "../assets/images/vi_NDVI_20251206_110327_babd1e9b2b504dd2b29b6a37f05c452e.png";
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -57,11 +57,11 @@ const LandingPage: React.FC = () => {
         [18.864144, 99.130293], // North-East
       ];
 
-      // Image overlay removed - temp file no longer exists
-      // L.imageOverlay(dashboardBg, imageBounds, {
-      //   opacity: 0.9,
-      //   interactive: true,
-      // }).addTo(map);
+      // NDVI Image overlay
+      L.imageOverlay(dashboardBg, imageBounds, {
+        opacity: 0.9,
+        interactive: true,
+      }).addTo(map);
 
       map.fitBounds(imageBounds, {
         paddingTopLeft: [20, 20],

@@ -11,13 +11,14 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000,
     cors: true,
-    // ✅ ยอมทุกโดเมน/พอร์ต
     allowedHosts: true,
-    // ✅ ให้ HMR ใช้งานหลัง tunnel
-    hmr: {
-      clientPort: 443,
-      protocol: 'wss'
-    }
+    // Only use tunnel HMR settings when explicitly enabled
+    ...(process.env.VITE_USE_TUNNEL === 'true' && {
+      hmr: {
+        clientPort: 443,
+        protocol: 'wss'
+      }
+    })
   },
   define: { global: 'globalThis' }
 })
