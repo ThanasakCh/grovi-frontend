@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { FieldProvider } from "./contexts/FieldContext";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/common/Navbar";
 import AuthPage from "./pages/AuthPage";
 import MapPage from "./pages/MapPage";
 import FieldDetailPage from "./pages/FieldDetailPage";
@@ -16,7 +16,7 @@ import AnalysisPage from "./pages/AnalysisPage";
 import ComparePage from "./pages/ComparePage";
 import HomePage from "./pages/HomePage";
 import TunnelDashboard from "./pages/TunnelDashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function AppContent() {
   const location = useLocation();

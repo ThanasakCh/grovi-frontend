@@ -8,13 +8,13 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-// Import local images
-import ndviImage from "../icon/ndvi.jpg";
-import eviImage from "../icon/evi.png";
-import gndviImage from "../icon/gndvi.png";
-import ndwiImage from "../icon/ndwi.png";
-import saviImage from "../icon/savi.png";
-import vciImage from "../icon/vci.png";
+// Placeholder images - replace with actual VI images when available
+const ndviImage = "https://picsum.photos/seed/ndvi/800/600";
+const eviImage = "https://picsum.photos/seed/evi/800/600";
+const gndviImage = "https://picsum.photos/seed/gndvi/800/600";
+const ndwiImage = "https://picsum.photos/seed/ndwi/800/600";
+const saviImage = "https://picsum.photos/seed/savi/800/600";
+const vciImage = "https://picsum.photos/seed/vci/800/600";
 
 interface ScaleRange {
   min: number;

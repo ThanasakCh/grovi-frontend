@@ -18,7 +18,7 @@ import {
   LogIn,
   ArrowRightCircle,
 } from "lucide-react";
-import logoImage from "../logo.png";
+import logoImage from "../assets/images/logo.png";
 
 const AuthPage: React.FC = () => {
   const navigate = useNavigate();

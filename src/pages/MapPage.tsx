@@ -5,9 +5,9 @@ import L from "leaflet";
 import "leaflet-draw";
 import { useField } from "../contexts/FieldContext";
 import { useAuth } from "../contexts/AuthContext";
-import FieldCard from "../components/FieldCard";
-import SearchPanel from "../components/SearchPanel";
-import { FieldCardSkeleton } from "../components/SkeletonLoader";
+import FieldCard from "../components/fields/FieldCard";
+import SearchPanel from "../components/map/SearchPanel";
+import { FieldCardSkeleton } from "../components/common/SkeletonLoader";
 
 // Fix Leaflet default icon issue
 delete (L.Icon.Default.prototype as any)._getIconUrl;
