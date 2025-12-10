@@ -50,14 +50,11 @@ const LandingPage: React.FC = () => {
 
       satelliteLayer.addTo(map);
 
-      // Define bounds for the image overlay
-      // Using coordinates that approximate the original polygon area
       const imageBounds: L.LatLngBoundsExpression = [
         [18.862886, 99.128512], // South-West
         [18.864144, 99.130293], // North-East
       ];
 
-      // NDVI Image overlay
       L.imageOverlay(dashboardBg, imageBounds, {
         opacity: 0.9,
         interactive: true,

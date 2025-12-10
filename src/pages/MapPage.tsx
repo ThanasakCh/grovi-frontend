@@ -44,12 +44,10 @@ const MapPage: React.FC = () => {
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
 
-    // Initialize map
     const map = L.map(mapContainerRef.current, {
       zoomControl: false,
     }).setView([18.79, 98.99], 12);
 
-    // Add base layers
     const esriSatellite = L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       {
@@ -65,7 +63,6 @@ const MapPage: React.FC = () => {
       }
     );
 
-    // Add layer control
     L.control
       .layers(
         {
@@ -81,7 +78,6 @@ const MapPage: React.FC = () => {
 
     mapRef.current = map;
 
-    // Initialize draw control
     const drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
@@ -115,7 +111,6 @@ const MapPage: React.FC = () => {
 
     drawControlRef.current = drawControl;
 
-    // Handle draw events
     map.on((L as any).Draw.Event.CREATED, (e: any) => {
       const layer = e.layer;
       if (drawnLayerRef.current) {
@@ -133,7 +128,6 @@ const MapPage: React.FC = () => {
       console.log("✅ ผู้ใช้วาดรูปเสร็จแล้ว กำลังแสดงฟอร์มกรอกข้อมูล");
     });
 
-    // Restore existing fields
     restoreFields();
 
     return () => {
@@ -148,7 +142,6 @@ const MapPage: React.FC = () => {
     if (mapRef.current && fields.length > 0) {
       restoreFields();
     }
-    // Set loading to false after fields are loaded
     if (fields.length >= 0) {
       setTimeout(() => setIsLoadingFields(false), 500);
     }
@@ -177,7 +170,6 @@ const MapPage: React.FC = () => {
       }
     });
 
-    // Fit bounds to show all fields
     if (fields.length === 1) {
       const field = fields[0];
       const layer = L.geoJSON(field.geometry);
@@ -191,7 +183,7 @@ const MapPage: React.FC = () => {
     setIsDrawing(true);
     setShowDrawForm(false);
 
-    // Enable polygon drawing directly without showing the control UI
+    // Enable polygon drawing without showing control UI
     const polygonDrawer = new (L as any).Draw.Polygon(mapRef.current, {
       shapeOptions: {
         color: "#ff0000",
@@ -223,7 +215,6 @@ const MapPage: React.FC = () => {
       console.log("📝 กำลังบันทึกข้อมูลแปลง...");
       console.log("🔍 ข้อมูลที่จะส่ง:", drawFormData);
 
-      // Validation
       if (!drawFormData.name.trim()) {
         Swal.fire({
           title: "แจ้งเตือน",
@@ -234,10 +225,7 @@ const MapPage: React.FC = () => {
         return;
       }
 
-      // Convert drawn layer to GeoJSON
       const geoJson = (drawnLayerRef.current as any).toGeoJSON();
-
-      // ตรวจสอบ geometry
       if (!geoJson || !geoJson.geometry) {
         Swal.fire({
           title: "เกิดข้อผิดพลาด",
@@ -248,7 +236,7 @@ const MapPage: React.FC = () => {
         return;
       }
 
-      // แปลง date format ให้ถูกต้อง
+      // Convert date format
       let planting_date = null;
       if (drawFormData.planting_date) {
         try {
@@ -270,10 +258,7 @@ const MapPage: React.FC = () => {
       console.log("🚀 กำลังส่งข้อมูลไปยัง API:", fieldData);
       const newField = await createField(fieldData);
 
-      // Capture thumbnail
       await captureAndSaveThumbnail(newField.id);
-
-      // Reset form และซ่อนฟอร์ม
       setShowDrawForm(false);
       setDrawFormData({
         name: "แปลง A1",
@@ -283,7 +268,6 @@ const MapPage: React.FC = () => {
         planting_date: "",
       });
 
-      // ลบ drawn layer
       if (mapRef.current && drawnLayerRef.current) {
         mapRef.current.removeLayer(drawnLayerRef.current);
         drawnLayerRef.current = null;
@@ -299,7 +283,6 @@ const MapPage: React.FC = () => {
     } catch (error: any) {
       console.error("❌ บันทึกแปลงไม่สำเร็จ:", error);
 
-      // แสดง error message ที่เข้าใจง่าย
       let errorMessage = "สร้างแปลงไม่สำเร็จ";
 
       if (error.response) {
@@ -328,7 +311,7 @@ const MapPage: React.FC = () => {
     if (!mapRef.current) return;
 
     try {
-      // Try to use leaflet-image first, fallback to canvas-based approach
+      // Try leaflet-image first, fallback to procedural thumbnail
       try {
         const leafletImage = (await import("leaflet-image")) as any;
 
@@ -351,7 +334,6 @@ const MapPage: React.FC = () => {
 
               const dataUrl = thumbnailCanvas.toDataURL("image/png");
 
-              // Save thumbnail
               saveThumbnail(fieldId, dataUrl)
                 .then(() => resolve())
                 .catch(reject);
@@ -366,7 +348,7 @@ const MapPage: React.FC = () => {
         canvas.height = 90;
         const ctx = canvas.getContext("2d")!;
 
-        // Generate a unique color based on fieldId
+        // Generate unique color from fieldId
         const hash = fieldId.split("").reduce((a, b) => {
           a = ((a << 5) - a + b.charCodeAt(0)) & 0xffffffff;
           return a < 0 ? a + 0x100000000 : a;

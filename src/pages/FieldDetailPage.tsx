@@ -36,7 +36,7 @@ const FieldDetailPage: React.FC = () => {
 
   useEffect(() => {
     if (currentField && mapContainerRef.current && !mapRef.current) {
-      // เพิ่ม delay หลายแบบเพื่อให้แน่ใจว่า DOM พร้อม
+      // Multiple initialization attempts to ensure DOM is ready
       const timer1 = setTimeout(() => initializeMap(), 100);
       const timer2 = setTimeout(() => initializeMap(), 500);
       const timer3 = setTimeout(() => initializeMap(), 1000);
@@ -49,7 +49,6 @@ const FieldDetailPage: React.FC = () => {
     }
   }, [currentField]);
 
-  // เพิ่ม useEffect สำหรับ DOM ready
   useEffect(() => {
     if (currentField) {
       const checkAndInit = () => {
@@ -59,7 +58,7 @@ const FieldDetailPage: React.FC = () => {
         }
       };
 
-      // ลอง initialize หลายครั้งในช่วงเวลาต่างๆ
+      // Retry initialization at multiple intervals
       const intervals = [0, 200, 500, 1000, 2000];
       const timers = intervals.map((delay) => setTimeout(checkAndInit, delay));
 
@@ -156,7 +155,7 @@ const FieldDetailPage: React.FC = () => {
         }
       ).addTo(map);
 
-      console.log("🛰️ Esri satellite layer added");
+      console.log("🛠️ Esri satellite layer added");
 
       const osmLayer = L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -179,7 +178,7 @@ const FieldDetailPage: React.FC = () => {
         )
         .addTo(map);
 
-      console.log("🎛️ Layer control added");
+      console.log("🏛️ Layer control added");
 
       // Add field boundary
       if (currentField.geometry) {
@@ -200,7 +199,7 @@ const FieldDetailPage: React.FC = () => {
       mapRef.current = map;
       console.log("✅ Map initialization completed successfully!");
 
-      // บังคับให้แผนที่ปรับขนาดหลายครั้ง
+      // Force map resize multiple times
       setTimeout(() => {
         if (map) {
           map.invalidateSize();

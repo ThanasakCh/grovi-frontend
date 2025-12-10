@@ -19,7 +19,6 @@ interface RiceVariety {
 }
 
 const RICE_VARITIES: RiceVariety[] = [
-  // --- Group 1: Premium Rice (Rice Aromatic) ---
   {
     name: "ข้าวหอมมะลิ 105 (KDML105)",
     category: "Premium Rice",
@@ -57,7 +56,6 @@ const RICE_VARITIES: RiceVariety[] = [
     theme: "gold",
   },
 
-  // --- Group 2: High Yield White Rice ---
   {
     name: "ปทุมธานี 1",
     category: "High Yield",
@@ -104,7 +102,6 @@ const RICE_VARITIES: RiceVariety[] = [
     theme: "primary",
   },
 
-  // --- Group 3: Quality White Rice ---
   {
     name: "ข้าวเจ๊กเชยเสาไห้",
     category: "Special Quality",
@@ -142,7 +139,6 @@ const RICE_VARITIES: RiceVariety[] = [
     theme: "secondary",
   },
 
-  // --- Group 4: Sticky Rice ---
   {
     name: "กข 6 (RD6)",
     category: "Sticky Rice",
@@ -180,7 +176,6 @@ const RICE_VARITIES: RiceVariety[] = [
     theme: "secondary",
   },
 
-  // --- Group 5: Health & Others ---
   {
     name: "ข้าวมันปู / สังข์หยด",
     category: "Health",

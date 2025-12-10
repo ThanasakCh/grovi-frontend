@@ -76,7 +76,6 @@ const HealthPage: React.FC = () => {
     },
   ];
 
-  // Initialize on mount
   useEffect(() => {
     if (!fieldId) {
       navigate("/map");
@@ -120,12 +119,10 @@ const HealthPage: React.FC = () => {
   const initializeMap = () => {
     if (!mapContainerRef.current || !currentField || mapRef.current) return;
 
-    // Initialize map
     const map = L.map(mapContainerRef.current, {
       zoomControl: false,
     }).setView([currentField.centroid_lat, currentField.centroid_lng], 15);
 
-    // Add base layers
     const esriSatellite = L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       {
@@ -156,7 +153,6 @@ const HealthPage: React.FC = () => {
       )
       .addTo(map);
 
-    // Add field boundary
     if (currentField.geometry) {
       const fieldLayer = L.geoJSON(currentField.geometry, {
         style: {
@@ -169,7 +165,6 @@ const HealthPage: React.FC = () => {
       map.fitBounds(fieldLayer.getBounds(), { padding: [20, 20] });
     }
 
-    // Add interactive features
     map.on("mouseover", () => {
       if (overlayRef.current) {
         map.getContainer().style.cursor = "crosshair";
@@ -203,7 +198,7 @@ const HealthPage: React.FC = () => {
 
       setSnapshots(sortedSnapshots);
 
-      // Auto-select the latest snapshot
+      // Auto-select latest snapshot
       if (sortedSnapshots.length > 0) {
         setSelectedSnapshot(sortedSnapshots[0]);
         displayOverlay(sortedSnapshots[0]);
@@ -235,16 +230,12 @@ const HealthPage: React.FC = () => {
       imageUrl: getImageUrl(snapshot.overlay_data),
     });
 
-    // Remove existing overlay
     clearOverlay();
-
-    // Calculate bounds for overlay
     const fieldLayer = L.geoJSON(currentField.geometry);
     const bounds = fieldLayer.getBounds();
 
     console.log("📍 Field bounds:", bounds);
 
-    // Add new overlay with correct image URL
     overlayRef.current = L.imageOverlay(
       getImageUrl(snapshot.overlay_data),
       bounds,
@@ -270,7 +261,7 @@ const HealthPage: React.FC = () => {
       setIsAnalyzing(true);
       console.log("Starting analysis to fetch latest 4 cloud-masked images...");
 
-      // Clear old snapshots first
+      // Clear old snapshots before fetching new ones
       try {
         console.log("🗑️ Clearing old snapshots...");
         await axios.delete(`/vi-analysis/snapshots/${fieldId}`, {
@@ -284,7 +275,7 @@ const HealthPage: React.FC = () => {
         );
       }
 
-      // Fetch latest 4 unique cloud-masked images
+      // Fetch latest cloud-masked images
       const response = await axios.post(
         `/vi-analysis/${fieldId}/analyze-historical`,
         null,
