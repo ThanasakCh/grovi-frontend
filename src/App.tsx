@@ -20,7 +20,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function AppContent() {
   const location = useLocation();
-  const hideHeaderPaths = ["/auth"]; // Only hide on auth page
+  const hideHeaderPaths = ["/auth"];
 
   return (
     <div className="app">
